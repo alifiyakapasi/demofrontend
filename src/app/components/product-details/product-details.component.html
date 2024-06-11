@@ -1,0 +1,76 @@
+<!-- Initial Page when loads -->
+<div *ngIf="viewMode">
+  <!-- If Product is selected then display its details -->
+  <div *ngIf="currentProduct.id">
+    <h4>Product</h4>
+    <div class="mt-3">
+      <label><strong>Product Name:</strong></label> {{ currentProduct.productName }}
+    </div>
+    <div class="mt-3">
+      <label><strong>Product Description:</strong></label>
+      {{ currentProduct.productDescription }}
+    </div>
+    <div class="mt-3">
+      <label><strong>Product Price:</strong></label>
+      {{ currentProduct.productPrice }}
+    </div>
+    <div class="mt-3">
+      <label><strong>Product Quantity:</strong></label>
+      {{ currentProduct.productQuantity }}
+    </div>
+    <a class="btn btn-warning" routerLink="/products/{{ currentProduct.id }}">
+      Edit
+    </a>
+  </div>
+  <!-- If Product is not selected then display message -->
+  <div *ngIf="!currentProduct.id">
+    <p>Please click on any Product...</p>
+  </div>
+</div>
+
+<!-- OnClick of Edit Button -->
+<div *ngIf="!viewMode">
+  <a routerLink="" class="nav-link d-flex justify-content-center text-decoration-underline">
+    <h6>Back</h6>
+  </a>
+  <div class="d-flex justify-content-center" *ngIf="currentProduct.id">
+    <div class="edit-form w-25 mt-3">
+      <h4 class="fw-bold">Product Details</h4>
+      <form>
+        <div class="form-group">
+          <label for="productName">Product Name</label>
+          <input type="text" class="form-control" id="productName" [(ngModel)]="currentProduct.productName"
+            name="productName" />
+        </div>
+        <div class="form-group">
+          <label for="productDescription">Product Description</label>
+          <input type="text" class="form-control" id="productDescription"
+            [(ngModel)]="currentProduct.productDescription" name="productDescription" />
+        </div>
+        <div class="form-group">
+          <label for="productPrice">Product Price</label>
+          <input type="number" class="form-control" id="productPrice" [(ngModel)]="currentProduct.productPrice"
+            name="productPrice" />
+        </div>
+        <div class="form-group">
+          <label for="productQuantity">Product Quantity</label>
+          <input type="number" class="form-control" id="productQuantity" [(ngModel)]="currentProduct.productQuantity"
+            name="productQuantity" />
+        </div>
+      </form>
+      <div class="mt-4 justify-content-evenly d-flex">
+        <button class=" btn btn-danger" (click)="deleteProduct()">
+          Delete
+        </button>
+        <button type="submit" class=" btn btn-warning " (click)="updateProduct()">
+          Update
+        </button>
+        
+      </div>
+      <!-- <p class="ms-4">{{ message }}</p> -->
+    </div>
+  </div>
+  <div *ngIf="!currentProduct.id">
+    <p>Cannot access this Product...</p>
+  </div>
+</div>

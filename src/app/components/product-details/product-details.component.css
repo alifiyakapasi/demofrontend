@@ -1,0 +1,69 @@
+ /* Style for edit form container */
+ .edit-form {
+   border: 1px solid #ccc;
+   border-radius: 5px;
+   padding: 20px;
+   background-color: #f9f9f9;
+   justify-content: center;
+   display: block;
+ }
+
+ .edit-form h4 {
+   margin-bottom: 20px;
+   font-size: 18px;
+   color: #333;
+ }
+
+ /* Style for form groups */
+ .form-group {
+   margin-bottom: 20px;
+ }
+
+ /* Style for form labels */
+ label {
+   font-weight: bold;
+ }
+
+ /* Style for form inputs */
+ .form-control {
+   width: 100%;
+   padding: 10px;
+   border: 1px solid #ccc;
+   border-radius: 5px;
+   box-sizing: border-box;
+ }
+
+ /* Style for buttons */
+ .btn-danger,
+ .btn-warning {
+   margin-top: 10px;
+   padding: 7px 10px;
+   border-radius: 5px;
+   cursor: pointer;
+   transition: background-color 0.3s ease;
+ }
+
+ .btn-danger {
+   background-color: #dc3545;
+   border-color: #dc3545;
+   color: #fff;
+ }
+
+ .btn-warning {
+   background-color: #ffc107;
+   border-color: #ffc107;
+   color: #212529;
+ }
+
+ .btn-danger:hover,
+ .btn-warning:hover {
+   background-color: darken(#dc3545, 10%);
+   border-color: darken(#dc3545, 10%);
+ }
+
+ /* Style for error/success message */
+ p {
+   margin-top: 10px;
+   font-size: 20px;
+   color: #dc3545;
+ }

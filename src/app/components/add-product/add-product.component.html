@@ -1,0 +1,43 @@
+<div class="mt-5">
+  <h4 class="d-flex justify-content-center">Add Product</h4>
+  <div class="submit-form">
+    <!--Add Product Form -->
+    <div *ngIf="!submitted">
+      <div class="form-group">
+        <label for="productName">Product Name</label>
+        <input type="text" class="form-control" id="productName" required [(ngModel)]="product.productName"
+          name="productName" />
+      </div>
+      <div class="form-group">
+        <label for="productDescription">Product Description</label>
+        <input class="form-control" id="productDescription" required [(ngModel)]="product.productDescription"
+          name="productDescription" />
+      </div>
+      <div class="form-group">
+        <label for="productPrice">Product Price</label>
+        <input class="form-control" id="productPrice" required [(ngModel)]="product.productPrice" name="productPrice" />
+      </div>
+      <div class="form-group">
+        <label for="productQuantity">Product Quantity</label>
+        <input class="form-control" id="productQuantity" required [(ngModel)]="product.productQuantity"
+          name="productQuantity" />
+      </div>
+      <form class="example-form">
+        <mat-form-field class="example-full-width w-100 bg-light">
+          <mat-label>Product Quantity</mat-label>
+          <input type="text" placeholder="Pick one" aria-label="Number" matInput [matAutocomplete]="auto"
+            [(ngModel)]="product.categoryId" name="categoryId">
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let category of category" [value]="category.id">{{category.categoryName}}</mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </form>
+      <button (click)="saveProduct()" class="btn btn-success">Submit</button>
+    </div>
+    <!-- Product added successfully -->
+    <div *ngIf="submitted">
+      <h4>Product submitted successfully!</h4>
+      <button class="btn btn-success" (click)="newProduct()">Add</button>
+    </div>
+  </div>
+</div>

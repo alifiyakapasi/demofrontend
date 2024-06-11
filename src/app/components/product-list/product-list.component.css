@@ -1,0 +1,32 @@
+/* Dispaly list */
+.list {
+  text-align: left;
+  max-width: 750px;
+  margin: auto;
+}
+
+.list-group {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.list-group-item {
+  cursor: pointer;
+  padding: 10px;
+  margin-bottom: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* If Product selected, set as Active */
+.list-group-item.active {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+.list-group-item.active:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
