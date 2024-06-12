@@ -10,7 +10,8 @@ const routes: Routes = [
   {path: 'products', component: ProductListComponent},
   {path: 'products/:id', component: ProductDetailsComponent},
   {path: 'add', component: AddProductComponent},
-  {path: 'category', component: CategoryListComponent}
+  {path: 'category', component: CategoryListComponent},
+  {path: 'lazy-loading', loadChildren: () => import('./lazy-loading-routing/lazy-loading-routing.module').then(m => m.LazyLoadingRoutingModule)  }
 ];
 
 @NgModule({

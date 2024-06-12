@@ -15,6 +15,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { CategoryListComponent } from './components/category-list/category-list.component';
 import { ToastrModule, provideToastr } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LazyComponent } from './components/lazy/lazy.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AddProductComponent,
     ProductDetailsComponent,
     ProductListComponent,
-    CategoryListComponent
+    CategoryListComponent,
+    LazyComponent
   ],
   imports: [
     BrowserModule,
