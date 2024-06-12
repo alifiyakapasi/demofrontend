@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Product } from '../../models/product.model';
 import { ProductService } from '../../services/product.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Observable, map, startWith } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, of, startWith } from 'rxjs';
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../models/category.model';
 
@@ -11,9 +11,12 @@ import { Category } from '../../models/category.model';
   templateUrl: './add-product.component.html',
   styleUrl: './add-product.component.css'
 })
-export class AddProductComponent {
-  category?: Category[];
-  productForm: FormGroup;
+export class AddProductComponent implements OnInit {
+  categoryControl = new FormControl('');
+  category: Category[] = [];
+  filteredCategories?: Observable<Category[]>;
+  private categorySubject = new BehaviorSubject<Category[]>([]);
+  productForm!: FormGroup;
   product: Product = {
     productName: '',
     productDescription: '',
@@ -25,6 +28,18 @@ export class AddProductComponent {
 
   ngOnInit() {
     this.retrieveCategory();
+    console.log(this.category);
+    // Filter Category according to input
+    this.categorySubject.subscribe(categories => {
+      this.filteredCategories = this.categoryControl.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filter(value || '')),
+      );
+    });
+  }
+  private _filter(value: string): Category[] {
+    const filterValue = value.toLowerCase();
+    return this.category.filter(category => category.categoryName?.toLowerCase().includes(filterValue));
   }
 
   constructor(
@@ -77,25 +92,21 @@ export class AddProductComponent {
   }
 
   newProduct(): void {
-    location.reload();
     this.submitted = false;
-    this.product = {
-      productName: '',
-      productDescription: '',
-      productPrice: 0,
-      productQuantity: 0,
-      categoryId: ''
-    };
+    this.productForm.patchValue
+      ({
+        productName: null,
+        productDescription: null,
+        productPrice: null,
+        productQuantity: null,
+        categoryId: null
+      });
   }
 
   retrieveCategory(): void {
-    this.categoryService.getAll()
-      .subscribe({
-        next: (data) => {
-          this.category = data;
-          console.log(data);
-        },
-        error: (e) => console.error(e)
-      });
+    this.categoryService.getAll().subscribe(categories => {
+      this.category = categories;
+      this.categorySubject.next(categories); // Notify subscribers about the change in category
+    });
   }
 }
