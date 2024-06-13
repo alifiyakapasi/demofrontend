@@ -4,5 +4,6 @@ export class Product {
     productDescription: string = '';
     productPrice?: number = 0;
     productQuantity?: number = 0;
-    categoryId?: any
+    categoryId: any;
+    productStatus?: string = '';
 }

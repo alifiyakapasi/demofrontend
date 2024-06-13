@@ -17,12 +17,14 @@ export class AddProductComponent implements OnInit {
   filteredCategories?: Observable<Category[]>;
   private categorySubject = new BehaviorSubject<Category[]>([]);
   productForm!: FormGroup;
+  productStatus?: string;
   product: Product = {
     productName: '',
     productDescription: '',
     productPrice: 0,
     productQuantity: 0,
-    categoryId: ''
+    categoryId: '',
+    productStatus: ''
   };
   submitted = false;
 
@@ -52,7 +54,8 @@ export class AddProductComponent implements OnInit {
         productDescription: ['', Validators.required],
         productPrice: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
         productQuantity: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
-        categoryId: ['', Validators.required]
+        categoryId: [null, Validators.required],
+        productStatus: ['']
       });
   }
 
@@ -62,7 +65,8 @@ export class AddProductComponent implements OnInit {
       productDescription: this.productDescription?.value,
       productPrice: this.productPrice?.value,
       productQuantity: this.productQuantity?.value,
-      categoryId: this.categoryId?.value
+      categoryId: this.productForm.get('categoryId')?.value,
+      productStatus: this.productForm.get('productStatus')?.value
     };
 
     this.productService.create(data)
@@ -99,14 +103,15 @@ export class AddProductComponent implements OnInit {
         productDescription: null,
         productPrice: null,
         productQuantity: null,
-        categoryId: null
+        categoryId: null,
+        productStatus: null
       });
   }
 
   retrieveCategory(): void {
     this.categoryService.getAll().subscribe(categories => {
       this.category = categories;
-      this.categorySubject.next(categories); // Notify subscribers about the change in category
+      this.categorySubject.next(categories);
     });
   }
 }

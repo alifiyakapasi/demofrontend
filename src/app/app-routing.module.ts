@@ -6,12 +6,12 @@ import { AddProductComponent } from './components/add-product/add-product.compon
 import { CategoryListComponent } from './components/category-list/category-list.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'products', pathMatch: 'full'},
-  {path: 'products', component: ProductListComponent},
-  {path: 'products/:id', component: ProductDetailsComponent},
-  {path: 'add', component: AddProductComponent},
-  {path: 'category', component: CategoryListComponent},
-  {path: 'lazy-loading', loadChildren: () => import('./lazy-loading-routing/lazy-loading-routing.module').then(m => m.LazyLoadingRoutingModule)  }
+  { path: '', redirectTo: 'products', pathMatch: 'full' },
+  { path: 'products', component: ProductListComponent },
+  { path: 'products/:id', component: ProductDetailsComponent },
+  { path: 'add', component: AddProductComponent },
+  { path: 'category', component: CategoryListComponent },
+  { path: 'lazy-loading', loadChildren: () => import('./lazy-loading-routing/lazy-loading-routing.module').then(m => m.LazyLoadingRoutingModule) }
 ];
 
 @NgModule({

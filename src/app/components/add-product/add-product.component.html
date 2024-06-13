@@ -48,7 +48,15 @@
         <span class="message" *ngIf="categoryId?.invalid && categoryId?.touched">
           categoryName is required.
         </span>
-        <button type="submit" [disabled]="productForm.invalid" class="btn btn-success">Submit</button>
+        <div class="form-group">
+          <label>Product Status</label><br>
+          <input type="radio" name="productStatus" value="New" formControlName="productStatus">
+          <label for="New">New</label><br>
+          <input type="radio" name="productStatus" value="Old" formControlName="productStatus">
+          <label for="Old">Old</label>
+        </div>
+
+        <button type="submit" class="btn btn-success">Submit</button>
       </div>
     </form>
     <!-- Product added successfully -->
