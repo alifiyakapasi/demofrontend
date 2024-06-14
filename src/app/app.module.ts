@@ -17,6 +17,9 @@ import { ToastrModule, provideToastr } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LazyComponent } from './components/lazy/lazy.component';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,10 @@ import { MatRadioModule } from '@angular/material/radio';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    MatRadioModule
+    MatRadioModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    NgxMaterialTimepickerModule
   ],
   providers: [
     provideAnimationsAsync(),

@@ -6,7 +6,6 @@ import { BehaviorSubject, Observable, catchError, map, of, startWith } from 'rxj
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../models/category.model';
 import { FileUploadService } from '../add-product/file-upload.service';
-
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
@@ -36,7 +35,9 @@ export class AddProductComponent implements OnInit {
     categoryId: '',
     productStatus: '',
     selectedCategory: [],
-    fileUpload: ''
+    fileUpload: '',
+    fromDate: new Date(),
+    toDate: new Date(),
   };
   submitted = false;
 
@@ -95,7 +96,9 @@ export class AddProductComponent implements OnInit {
         productPrice: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
         productQuantity: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
         //categoryId: [null, Validators.required],
-        productStatus: ['']
+        productStatus: [''],
+        fromDate: ['', Validators.required],
+        toDate: ['', Validators.required],
       });
   }
   saveProduct(): void {
@@ -112,7 +115,9 @@ export class AddProductComponent implements OnInit {
             categoryId: this.productForm.get('categoryId')?.value,
             productStatus: this.productForm.get('productStatus')?.value,
             selectedCategory: this.categoryFormArray,
-            fileUpload: filename // Pass the filename to your product data
+            fileUpload: filename, // Pass the filename to your product data
+            fromDate: this.productForm.get('fromDate')?.value.toString(),
+            toDate: this.productForm.get('toDate')?.value.toString(),
           };
           console.log("data", data);
           // Call productService to save the product

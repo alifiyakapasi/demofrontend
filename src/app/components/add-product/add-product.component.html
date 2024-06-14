@@ -58,10 +58,11 @@
         <span class="fw-bold">Sub Categories List</span>{{categoryFormArray | json}}
         <button (click)='selectAll()' class="btn btn-outline-success btn-sm">All</button>
         <div class="form-check" *ngFor="let cat of categories">
-            <input class="form-check-input" (change)="onChange(cat.name, $event)"name="{{ cat.name }}" type="checkbox" id="{{cat.name}}">
-            <label class="form-check-label" for="{{cat.name}}">
-                {{cat.name}}
-            </label>
+          <input class="form-check-input" (change)="onChange(cat.name, $event)" name="{{ cat.name }}" type="checkbox"
+            id="{{cat.name}}">
+          <label class="form-check-label" for="{{cat.name}}">
+            {{cat.name}}
+          </label>
         </div>
         <!-- FileUpload -->
         <div class="mb-3 mt-3">
@@ -69,6 +70,26 @@
             <input class="form-control " type="file" (change)="onChangeFile($event)" />
           </div>
         </div>
+        <!-- Date From-To -->
+        <mat-form-field class="w-100">
+          <mat-label>Enter Product Period</mat-label>
+          <mat-date-range-input [rangePicker]="picker">
+            <input matStartDate placeholder="From Date" formControlName="fromDate" />
+            <input matEndDate placeholder="To Date" formControlName="toDate" />
+          </mat-date-range-input>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+
+          <!-- Invalid Date Messages  -->
+          <mat-error *ngIf="productForm.get('fromDate')?.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+          <mat-error *ngIf="productForm.get('toDate')?.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+
+          <!-- Required Date Messages -->
+          <mat-error *ngIf="productForm.get('fromDate')?.invalid">From Date Required</mat-error>
+          <mat-error *ngIf="productForm.get('toDate')?.invalid">To Date Required</mat-error>
+        </mat-form-field>
+
+        <!-- Form Submit -->
         <button type="submit" class="btn btn-success">Submit</button>
       </div>
     </form>
