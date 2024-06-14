@@ -63,6 +63,12 @@
                 {{cat.name}}
             </label>
         </div>
+        <!-- FileUpload -->
+        <div class="mb-3 mt-3">
+          <div class="text-center justify-content-center d-flex">
+            <input class="form-control " type="file" (change)="onChangeFile($event)" />
+          </div>
+        </div>
         <button type="submit" class="btn btn-success">Submit</button>
       </div>
     </form>

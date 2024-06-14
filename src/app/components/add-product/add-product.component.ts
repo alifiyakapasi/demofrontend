@@ -5,6 +5,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { BehaviorSubject, Observable, catchError, map, of, startWith } from 'rxjs';
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../models/category.model';
+import { FileUploadService } from '../add-product/file-upload.service';
 
 @Component({
   selector: 'app-add-product',
@@ -25,6 +26,8 @@ export class AddProductComponent implements OnInit {
   ];
   productForm!: FormGroup;
   productStatus?: string;
+  file: File | null = null; // Variable to store file to Upload
+
   product: Product = {
     productName: '',
     productDescription: '',
@@ -32,7 +35,8 @@ export class AddProductComponent implements OnInit {
     productQuantity: 0,
     categoryId: '',
     productStatus: '',
-    selectedCategory: []
+    selectedCategory: [],
+    fileUpload: ''
   };
   submitted = false;
 
@@ -63,28 +67,27 @@ export class AddProductComponent implements OnInit {
     }
   }
 
-  // selectAll() {
-  //   let checkBoxes = document.querySelectorAll('.form-check-input');
-  //   checkBoxes.forEach(ele => ele.click());
-  // }
   selectAll() {
     let checkBoxes = document.querySelectorAll('.form-check-input') as NodeListOf<HTMLInputElement>;
     checkBoxes.forEach((ele: HTMLInputElement) => {
-        ele.click();
+      ele.click();
     });
-}
-
-
-
-
-  duplicate() {
-    console.log(this.categoryFormArray);
   }
+
+  // For File Upload
+  onChangeFile(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    if (inputElement.files && inputElement.files.length > 0) {
+      this.file = inputElement.files[0];
+    }
+  }
+
 
   constructor(
     private productService: ProductService,
     private categoryService: CategoryService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private fileUploadService: FileUploadService) {
     this.productForm = this.formBuilder.group
       ({
         productName: ['', Validators.required],
@@ -95,26 +98,39 @@ export class AddProductComponent implements OnInit {
         productStatus: ['']
       });
   }
-
   saveProduct(): void {
-    const data = {
-      productName: this.productName?.value,
-      productDescription: this.productDescription?.value,
-      productPrice: this.productPrice?.value,
-      productQuantity: this.productQuantity?.value,
-      categoryId: this.productForm.get('categoryId')?.value,
-      productStatus: this.productForm.get('productStatus')?.value,
-      selectedCategory: this.categoryFormArray
-    };
-
-    this.productService.create(data)
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-          this.submitted = true;
+    // Upload the file first
+    if (this.file) {
+      this.fileUploadService.upload(this.file).subscribe({
+        next: (response) => {
+          const filename = response.name;
+          const data = {
+            productName: this.productName?.value,
+            productDescription: this.productDescription?.value,
+            productPrice: this.productPrice?.value,
+            productQuantity: this.productQuantity?.value,
+            categoryId: this.productForm.get('categoryId')?.value,
+            productStatus: this.productForm.get('productStatus')?.value,
+            selectedCategory: this.categoryFormArray,
+            fileUpload: filename // Pass the filename to your product data
+          };
+          console.log("data", data);
+          // Call productService to save the product
+          this.productService.create(data).subscribe({
+            next: (res) => {
+              console.log(res);
+              this.submitted = true;
+            },
+            error: (e) => console.error(e)
+          });
         },
-        error: (e) => console.error(e)
+        error: (error) => {
+          console.error('Error uploading file:', error);
+        }
       });
+    } else {
+      console.error('No file selected.');
+    }
   }
 
   get productName() {

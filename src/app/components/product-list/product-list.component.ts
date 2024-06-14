@@ -17,7 +17,8 @@ export class ProductListComponent implements OnInit {
     productQuantity: 0,
     categoryId: '',
     productStatus: '',
-    selectedCategory: [] = []
+    selectedCategory: [] = [],
+    fileUpload: ''
   };
   currentIndex = -1;
   productName = '';
@@ -49,7 +50,8 @@ export class ProductListComponent implements OnInit {
       productQuantity: 0,
       categoryId: '',
       productStatus: '',
-      selectedCategory: []
+      selectedCategory: [],
+      fileUpload: ''
     };
     this.currentIndex = -1;
   }
@@ -79,7 +81,8 @@ export class ProductListComponent implements OnInit {
       productQuantity: 0,
       categoryId: '',
       productStatus: '',
-      selectedCategory: []
+      selectedCategory: [],
+      fileUpload: ''
     };
     this.currentIndex = -1;
 

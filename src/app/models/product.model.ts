@@ -7,4 +7,5 @@ export class Product {
     categoryId: any;
     productStatus?: string = '';
     selectedCategory: Array<[]> = [];
+    fileUpload?: string = ''
 }

@@ -20,7 +20,8 @@ export class ProductDetailsComponent implements OnInit {
     productQuantity: 0,
     categoryId: '',
     productStatus: '',
-    selectedCategory: []
+    selectedCategory: [],
+    fileUpload: ''
   }
 
   constructor(
