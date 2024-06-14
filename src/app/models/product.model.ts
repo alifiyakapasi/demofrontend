@@ -10,4 +10,5 @@ export class Product {
     fileUpload?: string = '';
     fromDate?: Date;
     toDate?: Date;
+    time?: any;
 }

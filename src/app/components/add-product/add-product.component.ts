@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Product } from '../../models/product.model';
 import { ProductService } from '../../services/product.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -6,6 +6,7 @@ import { BehaviorSubject, Observable, catchError, map, of, startWith } from 'rxj
 import { CategoryService } from '../../services/category.service';
 import { Category } from '../../models/category.model';
 import { FileUploadService } from '../add-product/file-upload.service';
+import { DateTime } from 'luxon';
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
@@ -27,6 +28,23 @@ export class AddProductComponent implements OnInit {
   productStatus?: string;
   file: File | null = null; // Variable to store file to Upload
 
+  // For TimePicker
+  formControlItem = new FormControl('');
+  maxTime: DateTime = DateTime.local().set({
+    hour: 16,
+  });
+  minTime: DateTime = DateTime.local().set({
+    hour: 14,
+  });
+  required: boolean = !1;
+
+  @ViewChild('timepicker') timepicker: any;
+  openFromIcon(timepicker: { open: () => void }) {
+    if (!this.formControlItem.disabled) {
+      timepicker.open();
+    }
+  }
+
   product: Product = {
     productName: '',
     productDescription: '',
@@ -38,6 +56,7 @@ export class AddProductComponent implements OnInit {
     fileUpload: '',
     fromDate: new Date(),
     toDate: new Date(),
+    time: DateTime.local()
   };
   submitted = false;
 
@@ -67,7 +86,6 @@ export class AddProductComponent implements OnInit {
       this.categoryFormArray.splice(index, 1);
     }
   }
-
   selectAll() {
     let checkBoxes = document.querySelectorAll('.form-check-input') as NodeListOf<HTMLInputElement>;
     checkBoxes.forEach((ele: HTMLInputElement) => {
@@ -82,7 +100,6 @@ export class AddProductComponent implements OnInit {
       this.file = inputElement.files[0];
     }
   }
-
 
   constructor(
     private productService: ProductService,
@@ -99,6 +116,7 @@ export class AddProductComponent implements OnInit {
         productStatus: [''],
         fromDate: ['', Validators.required],
         toDate: ['', Validators.required],
+        time: ['', Validators.required]
       });
   }
   saveProduct(): void {
@@ -118,6 +136,7 @@ export class AddProductComponent implements OnInit {
             fileUpload: filename, // Pass the filename to your product data
             fromDate: this.productForm.get('fromDate')?.value.toString(),
             toDate: this.productForm.get('toDate')?.value.toString(),
+            time: this.productForm.get('time')?.value.toString()
           };
           console.log("data", data);
           // Call productService to save the product

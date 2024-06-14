@@ -89,6 +89,14 @@
           <mat-error *ngIf="productForm.get('toDate')?.invalid">To Date Required</mat-error>
         </mat-form-field>
 
+        <!-- TimePicker -->
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Time Picker</mat-label>
+          <input type="text" matInput [ngxTimepicker]="timepicker" [format]="24" formControlName="time" />
+          <mat-icon matSuffix *ngIf="!formControlItem.disabled" (click)="openFromIcon(timepicker)">schedule</mat-icon>
+          <ngx-material-timepicker #timepicker></ngx-material-timepicker>
+        </mat-form-field>
+
         <!-- Form Submit -->
         <button type="submit" class="btn btn-success">Submit</button>
       </div>
