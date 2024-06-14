@@ -1,3 +1,13 @@
+# Implemented Feature:
+ - Simple Input Form
+ - MatAutocomplete
+ - Radio Button
+ - Check Box
+ - File Upload
+ - DatePicker with Range
+ - Time Picker
+
+   
 # Demofrontend
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.3.
