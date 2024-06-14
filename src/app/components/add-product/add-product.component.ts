@@ -16,6 +16,13 @@ export class AddProductComponent implements OnInit {
   category: Category[] = [];
   filteredCategories?: Observable<Category[]>;
   private categorySubject = new BehaviorSubject<Category[]>([]);
+  categoryFormArray: Array<any> = [];
+  categories = [
+    { name: "AB", id: 1 },
+    { name: "BC", id: 2 },
+    { name: "CD", id: 3 },
+    { name: "DE", id: 4 }
+  ];
   productForm!: FormGroup;
   productStatus?: string;
   product: Product = {
@@ -24,7 +31,8 @@ export class AddProductComponent implements OnInit {
     productPrice: 0,
     productQuantity: 0,
     categoryId: '',
-    productStatus: ''
+    productStatus: '',
+    selectedCategory: []
   };
   submitted = false;
 
@@ -44,6 +52,35 @@ export class AddProductComponent implements OnInit {
     return this.category.filter(category => category.categoryName?.toLowerCase().includes(filterValue));
   }
 
+  // For Checkbox 
+  onChange(email: string, event: any) {
+    const isChecked = event.target.checked;
+    if (isChecked) {
+      this.categoryFormArray.push(email);
+    } else {
+      let index = this.categoryFormArray.indexOf(email);
+      this.categoryFormArray.splice(index, 1);
+    }
+  }
+
+  // selectAll() {
+  //   let checkBoxes = document.querySelectorAll('.form-check-input');
+  //   checkBoxes.forEach(ele => ele.click());
+  // }
+  selectAll() {
+    let checkBoxes = document.querySelectorAll('.form-check-input') as NodeListOf<HTMLInputElement>;
+    checkBoxes.forEach((ele: HTMLInputElement) => {
+        ele.click();
+    });
+}
+
+
+
+
+  duplicate() {
+    console.log(this.categoryFormArray);
+  }
+
   constructor(
     private productService: ProductService,
     private categoryService: CategoryService,
@@ -54,7 +91,7 @@ export class AddProductComponent implements OnInit {
         productDescription: ['', Validators.required],
         productPrice: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
         productQuantity: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
-        categoryId: [null, Validators.required],
+        //categoryId: [null, Validators.required],
         productStatus: ['']
       });
   }
@@ -66,7 +103,8 @@ export class AddProductComponent implements OnInit {
       productPrice: this.productPrice?.value,
       productQuantity: this.productQuantity?.value,
       categoryId: this.productForm.get('categoryId')?.value,
-      productStatus: this.productForm.get('productStatus')?.value
+      productStatus: this.productForm.get('productStatus')?.value,
+      selectedCategory: this.categoryFormArray
     };
 
     this.productService.create(data)
@@ -97,6 +135,7 @@ export class AddProductComponent implements OnInit {
 
   newProduct(): void {
     this.submitted = false;
+    location.reload();
     this.productForm.patchValue
       ({
         productName: null,

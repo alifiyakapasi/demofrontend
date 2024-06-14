@@ -13,11 +13,6 @@
   margin-bottom: 20px;
 }
 
-/* Style for form labels */
-label {
-  font-weight: bold;
-}
-
 /* Style for form inputs */
 .form-control {
   width: 100%;

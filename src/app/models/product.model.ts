@@ -6,4 +6,5 @@ export class Product {
     productQuantity?: number = 0;
     categoryId: any;
     productStatus?: string = '';
+    selectedCategory: Array<[]> = [];
 }
