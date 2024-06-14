@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../models/product.model';
 import { ProductService } from '../../services/product.service';
+import { DateTime } from 'luxon';
 
 @Component({
   selector: 'app-product-list',
@@ -18,7 +19,10 @@ export class ProductListComponent implements OnInit {
     categoryId: '',
     productStatus: '',
     selectedCategory: [] = [],
-    fileUpload: ''
+    fileUpload: '',
+    fromDate: new Date(),
+    toDate: new Date(),
+    time: DateTime.local()
   };
   currentIndex = -1;
   productName = '';
@@ -51,7 +55,10 @@ export class ProductListComponent implements OnInit {
       categoryId: '',
       productStatus: '',
       selectedCategory: [],
-      fileUpload: ''
+      fileUpload: '',
+      fromDate: new Date(),
+      toDate: new Date(),
+      time: DateTime.local()
     };
     this.currentIndex = -1;
   }
@@ -82,7 +89,10 @@ export class ProductListComponent implements OnInit {
       categoryId: '',
       productStatus: '',
       selectedCategory: [],
-      fileUpload: ''
+      fileUpload: '',
+      fromDate: new Date(),
+      toDate: new Date(),
+      time: DateTime.local()
     };
     this.currentIndex = -1;
 

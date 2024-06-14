@@ -3,6 +3,7 @@ import { Product } from '../../models/product.model';
 import { ProductService } from '../../services/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { DateTime } from 'luxon';
 
 @Component({
   selector: 'app-product-details',
@@ -21,7 +22,10 @@ export class ProductDetailsComponent implements OnInit {
     categoryId: '',
     productStatus: '',
     selectedCategory: [],
-    fileUpload: ''
+    fileUpload: '',
+    fromDate: new Date(),
+    toDate: new Date(),
+    time: DateTime.local()
   }
 
   constructor(
