@@ -1,4 +1,4 @@
-# Implemented Feature;
+# Implemented Feature:
  - Simple Input Form
  - MatAutocomplete
  - Radio Button
