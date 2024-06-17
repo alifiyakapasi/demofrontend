@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Product } from '../../models/product.model';
-import { ProductService } from '../../services/product.service';
+import { Product } from '@models/product.model';
+import { ProductService } from '@services/product.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, Observable, catchError, map, of, startWith } from 'rxjs';
-import { CategoryService } from '../../services/category.service';
-import { Category } from '../../models/category.model';
-import { FileUploadService } from '../add-product/file-upload.service';
+import { BehaviorSubject, Observable, map, startWith } from 'rxjs';
+import { CategoryService } from '@services/category.service';
+import { Category } from '@models/category.model';
+import { FileUploadService } from '@components/add-product/file-upload.service';
 import { DateTime } from 'luxon';
 import { ToastrService } from 'ngx-toastr';
 @Component({
