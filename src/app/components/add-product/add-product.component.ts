@@ -8,6 +8,7 @@ import { Category } from '@models/category.model';
 import { FileUploadService } from '@components/add-product/file-upload.service';
 import { DateTime } from 'luxon';
 import { ToastrService } from 'ngx-toastr';
+import { TimepickerDirective } from 'ngx-material-timepicker';
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
@@ -18,7 +19,7 @@ export class AddProductComponent implements OnInit {
   category: Category[] = [];
   filteredCategories?: Observable<Category[]>;
   private categorySubject = new BehaviorSubject<Category[]>([]);
-  categoryFormArray: Array<any> = [];
+  categoryFormArray: string[] = [];
   categories = [
     { name: "AB", id: 1 },
     { name: "BC", id: 2 },
@@ -39,7 +40,7 @@ export class AddProductComponent implements OnInit {
   });
   required: boolean = !1;
 
-  @ViewChild('timepicker') timepicker: any;
+  @ViewChild('timepicker') timepicker!: TimepickerDirective;
   openFromIcon(timepicker: { open: () => void }) {
     if (!this.formControlItem.disabled) {
       timepicker.open();
@@ -78,8 +79,8 @@ export class AddProductComponent implements OnInit {
   }
 
   // For Checkbox 
-  onChange(email: string, event: any) {
-    const isChecked = event.target.checked;
+  onChange(email: string, event: Event) {
+    const isChecked = (event.target as HTMLInputElement).checked;
     if (isChecked) {
       this.categoryFormArray.push(email);
     } else {
@@ -151,6 +152,7 @@ export class AddProductComponent implements OnInit {
           });
         },
         error: (error) => {
+          this.toastr.error('Error uploading file.');
           console.error('Error uploading file:', error);
         }
       });

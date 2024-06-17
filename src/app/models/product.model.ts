@@ -1,14 +1,16 @@
+import { DateTime } from "luxon";
+
 export class Product {
-    id?: any;
+    id?: string;
     productName: string = '';
     productDescription: string = '';
     productPrice?: number = 0;
     productQuantity?: number = 0;
-    categoryId: any;
+    categoryId: string = '';
     productStatus?: string = '';
-    selectedCategory: Array<[]> = [];
+    selectedCategory: string[] = [];
     fileUpload?: string = '';
     fromDate?: Date;
     toDate?: Date;
-    time?: any;
+    time?: DateTime;
 }

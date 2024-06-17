@@ -53,6 +53,10 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   updateProduct(): void {
+    if (!this.currentProduct.id) {
+      console.error('Product id is undefined');
+      return;
+    }
     this.productService.update(this.currentProduct.id, this.currentProduct)
       .subscribe({
         next: (res) => {
@@ -65,6 +69,10 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   deleteProduct(): void {
+    if (!this.currentProduct.id) {
+      console.error('Product id is undefined');
+      return;
+    }
     this.productService.delete(this.currentProduct.id)
       .subscribe({
         next: (res) => {

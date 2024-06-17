@@ -12,7 +12,7 @@ export class FileUploadService {
   constructor(private http: HttpClient) {}
 
   // Returns an observable
-  upload(file: File): Observable<any> {
+  upload(file: File): Observable<File> {
     // Create form data
     const formData = new FormData();
 
@@ -21,6 +21,6 @@ export class FileUploadService {
 
     // Make http post request over api
     // with formData as req
-    return this.http.post(this.baseApiUrl, formData);
+    return this.http.post<File>(this.baseApiUrl, formData);
   }
 }
