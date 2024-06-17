@@ -6,6 +6,8 @@
  - File Upload
  - DatePicker with Range
  - Time Picker
+ - Eslint
+ - anytype-to-explicitly-type
 
    
 # Demofrontend
