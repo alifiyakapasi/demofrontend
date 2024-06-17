@@ -8,15 +8,9 @@
   background-color: #f9f9f9;
 }
 
-/* Style for form groups */
-.form-group {
-  margin-bottom: 20px;
-}
-
 /* Style for form inputs */
 .form-control {
   width: 100%;
-  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
@@ -47,6 +41,6 @@ h4 {
 }
 
 /* Validation Message */
-.message{
+.message {
   color: red;
 }

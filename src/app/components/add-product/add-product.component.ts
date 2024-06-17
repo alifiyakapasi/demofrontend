@@ -7,6 +7,7 @@ import { CategoryService } from '../../services/category.service';
 import { Category } from '../../models/category.model';
 import { FileUploadService } from '../add-product/file-upload.service';
 import { DateTime } from 'luxon';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
@@ -105,14 +106,15 @@ export class AddProductComponent implements OnInit {
     private productService: ProductService,
     private categoryService: CategoryService,
     private formBuilder: FormBuilder,
-    private fileUploadService: FileUploadService) {
+    private fileUploadService: FileUploadService,
+    private toastr: ToastrService) {
     this.productForm = this.formBuilder.group
       ({
         productName: ['', Validators.required],
         productDescription: ['', Validators.required],
         productPrice: ['', [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)]],
         productQuantity: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
-        //categoryId: [null, Validators.required],
+        categoryId: [null, Validators.required],
         productStatus: [''],
         fromDate: ['', Validators.required],
         toDate: ['', Validators.required],
@@ -153,6 +155,7 @@ export class AddProductComponent implements OnInit {
         }
       });
     } else {
+      this.toastr.error('No file selected.');
       console.error('No file selected.');
     }
   }

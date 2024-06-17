@@ -2,104 +2,111 @@
   <h4 class="d-flex justify-content-center">Add Product</h4>
   <div class="submit-form">
     <!--Add Product Form -->
-    <form [formGroup]="productForm" (ngSubmit)="saveProduct()">
-      <div *ngIf="!submitted">
-        <div class="form-group">
-          <label for="productName" class="fw-bold">Product Name</label>
+    <form [formGroup]="productForm" (ngSubmit)="saveProduct()" *ngIf="!submitted">
+      <div class="form-group">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label for="productName" class="fw-bold">Product Name</mat-label>
           <input type="text" class="form-control" id="productName" matInput required formControlName="productName"
             name="productName" />
-          <span class="message" *ngIf="productName?.invalid && productName?.touched">
+          <mat-error class="message" *ngIf="productName?.invalid && productName?.touched">
             This field is required.
-          </span>
-        </div>
-        <div class="form-group">
-          <label for="productDescription" class="fw-bold">Product Description</label>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label for="productDescription" class="fw-bold">Product Description</mat-label>
           <input class="form-control" id="productDescription" required matInput formControlName="productDescription"
             name="productDescription" />
-          <span class="message" *ngIf="productDescription?.invalid && productDescription?.touched">
+          <mat-error class="message" *ngIf="productDescription?.invalid && productDescription?.touched">
             This field is required.
-          </span>
-        </div>
-        <div class="form-group">
-          <label for="productPrice" class="fw-bold">Product Price</label>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label for="productPrice" class="fw-bold">Product Price</mat-label>
           <input class="form-control" type="number" id="productPrice" required matInput name="productPrice"
             formControlName="productPrice" />
-          <span class="message" *ngIf="productPrice?.invalid && productPrice?.touched">
+          <mat-error class="message" *ngIf="productPrice?.invalid && productPrice?.touched">
             This field is required.
-          </span>
-        </div>
-        <div class="form-group">
-          <label for="productQuantity" class="fw-bold">Product Quantity</label>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label for="productQuantity" class="fw-bold">Product Quantity</mat-label>
           <input class="form-control" type="number" id="productQuantity" required matInput
             formControlName="productQuantity" name="productQuantity" />
-          <span class="message" *ngIf="productQuantity?.invalid && productQuantity?.touched">
+          <mat-error class="message" *ngIf="productQuantity?.invalid && productQuantity?.touched">
             This field is required.
-          </span>
-        </div>
-        <mat-form-field class="example-full-width w-100 bg-light">
-          <mat-label class="fw-bold">Product Category</mat-label>
-          <input type="text" placeholder="Pick one" aria-label="Number" matInput [matAutocomplete]="auto"
-            formControlName="categoryId" [formControl]="categoryControl" name="categoryId">
-          <mat-autocomplete #auto="matAutocomplete">
-            <mat-option *ngFor="let category of filteredCategories | async"
-              [value]="category.id">{{category.categoryName}}</mat-option>
-          </mat-autocomplete>
+          </mat-error>
         </mat-form-field>
-        <span class="message" *ngIf="categoryId?.invalid && categoryId?.touched">
-          categoryName is required.
-        </span>
-        <div class="form-group">
-          <label class="fw-bold">Product Status</label><br>
-          <input type="radio" name="productStatus" value="New" formControlName="productStatus">
-          <label for="New">New</label><br>
-          <input type="radio" name="productStatus" value="Old" formControlName="productStatus">
-          <label for="Old">Old</label>
-        </div>
-        <span class="fw-bold">Sub Categories List</span>{{categoryFormArray | json}}
-        <button (click)='selectAll()' class="btn btn-outline-success btn-sm">All</button>
-        <div class="form-check" *ngFor="let cat of categories">
-          <input class="form-check-input" (change)="onChange(cat.name, $event)" name="{{ cat.name }}" type="checkbox"
-            id="{{cat.name}}">
-          <label class="form-check-label" for="{{cat.name}}">
-            {{cat.name}}
-          </label>
-        </div>
-        <!-- FileUpload -->
-        <div class="mb-3 mt-3">
-          <div class="text-center justify-content-center d-flex">
-            <input class="form-control " type="file" (change)="onChangeFile($event)" />
-          </div>
-        </div>
-        <!-- Date From-To -->
-        <mat-form-field class="w-100">
-          <mat-label>Enter Product Period</mat-label>
-          <mat-date-range-input [rangePicker]="picker">
-            <input matStartDate placeholder="From Date" formControlName="fromDate" />
-            <input matEndDate placeholder="To Date" formControlName="toDate" />
-          </mat-date-range-input>
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-date-range-picker #picker></mat-date-range-picker>
-
-          <!-- Invalid Date Messages  -->
-          <mat-error *ngIf="productForm.get('fromDate')?.hasError('matStartDateInvalid')">Invalid start date</mat-error>
-          <mat-error *ngIf="productForm.get('toDate')?.hasError('matEndDateInvalid')">Invalid end date</mat-error>
-
-          <!-- Required Date Messages -->
-          <mat-error *ngIf="productForm.get('fromDate')?.invalid">From Date Required</mat-error>
-          <mat-error *ngIf="productForm.get('toDate')?.invalid">To Date Required</mat-error>
-        </mat-form-field>
-
-        <!-- TimePicker -->
-        <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Time Picker</mat-label>
-          <input type="text" matInput [ngxTimepicker]="timepicker" [format]="24" formControlName="time" />
-          <mat-icon matSuffix *ngIf="!formControlItem.disabled" (click)="openFromIcon(timepicker)">schedule</mat-icon>
-          <ngx-material-timepicker #timepicker></ngx-material-timepicker>
-        </mat-form-field>
-
-        <!-- Form Submit -->
-        <button type="submit" class="btn btn-success">Submit</button>
       </div>
+      <mat-form-field class="example-full-width w-100 bg-light">
+        <mat-label class="fw-bold">Product Category</mat-label>
+        <input type="text" placeholder="Pick one" aria-label="Number" matInput [matAutocomplete]="auto"
+          formControlName="categoryId" [formControl]="categoryControl" name="categoryId">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let category of filteredCategories | async"
+            [value]="category.id">{{category.categoryName}}</mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      <mat-error class="message" *ngIf="categoryId?.invalid && categoryId?.touched">
+        categoryName is required.
+      </mat-error>
+      <div class="form-group">
+        <label class="fw-bold">Product Status</label><br>
+        <input type="radio" name="productStatus" value="New" formControlName="productStatus">
+        <label for="New" class="ms-2">New</label><br>
+        <input type="radio" name="productStatus" value="Old" formControlName="productStatus">
+        <label for="Old" class="ms-2">Old</label>
+      </div>
+      <span class="fw-bold">Sub Categories List</span>{{categoryFormArray | json}}
+      <button (click)='selectAll()' class="btn btn-outline-success btn-sm">All</button>
+      <div class="form-check" *ngFor="let cat of categories">
+        <input class="form-check-input" (change)="onChange(cat.name, $event)" name="{{ cat.name }}" type="checkbox"
+          id="{{cat.name}}">
+        <label class="form-check-label" for="{{cat.name}}">
+          {{cat.name}}
+        </label>
+      </div>
+      <!-- FileUpload -->
+      <div class="mb-3 mt-3">
+        <div class="text-center justify-content-center d-flex">
+          <input class="form-control " type="file" (change)="onChangeFile($event)" />
+        </div>
+      </div>
+      <!-- Date From-To -->
+      <mat-form-field class="w-100">
+        <mat-label>Enter Product Period</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input matStartDate placeholder="From Date" formControlName="fromDate" />
+          <input matEndDate placeholder="To Date" formControlName="toDate" />
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+
+        <!-- Invalid Date Messages  -->
+        <mat-error *ngIf="productForm.get('fromDate')?.hasError('matStartDateInvalid')">Invalid start date</mat-error>
+        <mat-error *ngIf="productForm.get('toDate')?.hasError('matEndDateInvalid')">Invalid end date</mat-error>
+
+        <!-- Required Date Messages -->
+        <mat-error *ngIf="productForm.get('fromDate')?.invalid">From Date Required</mat-error>
+        <mat-error *ngIf="productForm.get('toDate')?.invalid">To Date Required</mat-error>
+      </mat-form-field>
+
+      <!-- TimePicker -->
+      <mat-form-field appearance="outline" class="w-100 mt-3">
+        <mat-label>Time Picker</mat-label>
+        <input type="text" matInput [ngxTimepicker]="timepicker" [format]="24" formControlName="time" />
+        <mat-icon matSuffix *ngIf="!formControlItem.disabled" (click)="openFromIcon(timepicker)">schedule</mat-icon>
+        <ngx-material-timepicker #timepicker></ngx-material-timepicker>
+      </mat-form-field>
+
+      <!-- Form Submit -->
+      <button type="submit" class="btn btn-success">Submit</button>
+      <!-- </div> -->
     </form>
     <!-- Product added successfully -->
     <div *ngIf="submitted">
