@@ -21,6 +21,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import {MatIconModule} from '@angular/material/icon';
+import { LoginComponent } from './components/login/login.component';
+import { AuthGuard } from './guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import {MatIconModule} from '@angular/material/icon';
     ProductDetailsComponent,
     ProductListComponent,
     CategoryListComponent,
-    LazyComponent
+    LazyComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -50,6 +53,7 @@ import {MatIconModule} from '@angular/material/icon';
     MatIconModule
   ],
   providers: [
+    AuthGuard,
     provideAnimationsAsync(),
     provideToastr(),
   ],

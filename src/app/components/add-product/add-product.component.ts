@@ -38,7 +38,7 @@ export class AddProductComponent implements OnInit {
   minTime: DateTime = DateTime.local().set({
     hour: 14,
   });
-  required: boolean = !1;
+  required = !1;
 
   @ViewChild('timepicker') timepicker!: TimepickerDirective;
   openFromIcon(timepicker: { open: () => void }) {
@@ -66,7 +66,7 @@ export class AddProductComponent implements OnInit {
     this.retrieveCategory();
     console.log(this.category);
     // Filter Category according to input
-    this.categorySubject.subscribe(categories => {
+    this.categorySubject.subscribe(() => {
       this.filteredCategories = this.categoryControl.valueChanges.pipe(
         startWith(''),
         map(value => this._filter(value || '')),
@@ -84,12 +84,12 @@ export class AddProductComponent implements OnInit {
     if (isChecked) {
       this.categoryFormArray.push(email);
     } else {
-      let index = this.categoryFormArray.indexOf(email);
+      const index = this.categoryFormArray.indexOf(email);
       this.categoryFormArray.splice(index, 1);
     }
   }
   selectAll() {
-    let checkBoxes = document.querySelectorAll('.form-check-input') as NodeListOf<HTMLInputElement>;
+    const checkBoxes = document.querySelectorAll('.form-check-input') as NodeListOf<HTMLInputElement>;
     checkBoxes.forEach((ele: HTMLInputElement) => {
       ele.click();
     });

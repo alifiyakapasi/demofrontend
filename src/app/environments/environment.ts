@@ -4,7 +4,8 @@
 
 export const environment = {
     production: false,
-    baseUrl: 'https://localhost:7135/api/products'
+    baseUrl: 'https://localhost:7135/api/products',
+    userUrl: 'https://localhost:7135/api/UsersAuth'
   };
   
   /*
